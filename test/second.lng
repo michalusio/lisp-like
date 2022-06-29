@@ -1,0 +1,12 @@
+(fn
+  {f
+    x
+    (ter
+      (= x 0)
+      {1}
+      {(+ 1 (f (+ x -1)))}
+    )
+  }
+)
+
+(let {f (head (loadFile "./second.lng"))})

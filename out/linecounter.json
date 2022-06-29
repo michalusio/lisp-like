@@ -1,0 +1,392 @@
+{
+    "extension": "linecounter",
+    "version": "0.2.7",
+    "workspace": "d:\\VSCode\\Lisp-like",
+    "linecount": [
+        {
+            "version": "0.2.7",
+            "counttime": "2022-06-24 00:57:40",
+            "filesum": 13,
+            "codesum": 323,
+            "commentsum": 0,
+            "blanksum": 47,
+            "statistics": {
+                ".ast": {
+                    "code": 40,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".lng": {
+                    "code": 1,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".ts": {
+                    "code": 129,
+                    "comment": 0,
+                    "blank": 29
+                },
+                ".json": {
+                    "code": 29,
+                    "comment": 0,
+                    "blank": 1
+                },
+                ".js": {
+                    "code": 50,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".lock": {
+                    "code": 74,
+                    "comment": 0,
+                    "blank": 17
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 0,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "dist\\ast\\index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "dist\\index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "dist\\utils\\index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "package.json"
+                },
+                {
+                    "blank": 14,
+                    "code": 45,
+                    "comment": 0,
+                    "filename": "src\\ast\\index.ts"
+                },
+                {
+                    "blank": 6,
+                    "code": 45,
+                    "comment": 0,
+                    "filename": "src\\index.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\utils\\index.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\vm\\index.ts"
+                },
+                {
+                    "blank": 7,
+                    "code": 30,
+                    "comment": 0,
+                    "filename": "src\\vm\\scope.ts"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "test\\lang.lng"
+                },
+                {
+                    "blank": 0,
+                    "code": 40,
+                    "comment": 0,
+                    "filename": "test\\lang.lng.ast"
+                },
+                {
+                    "blank": 1,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "tsconfig.json"
+                },
+                {
+                    "blank": 17,
+                    "code": 74,
+                    "comment": 0,
+                    "filename": "yarn.lock"
+                }
+            ]
+        },
+        {
+            "version": "0.2.7",
+            "counttime": "2022-06-25 23:19:02",
+            "filesum": 38,
+            "codesum": 826,
+            "commentsum": 4,
+            "blanksum": 71,
+            "statistics": {
+                ".lng": {
+                    "code": 6,
+                    "comment": 0,
+                    "blank": 0
+                },
+                ".lock": {
+                    "code": 74,
+                    "comment": 0,
+                    "blank": 17
+                },
+                ".ts": {
+                    "code": 331,
+                    "comment": 2,
+                    "blank": 53
+                },
+                ".json": {
+                    "code": 30,
+                    "comment": 0,
+                    "blank": 1
+                },
+                ".js": {
+                    "code": 385,
+                    "comment": 2,
+                    "blank": 0
+                }
+            },
+            "filelist": [
+                {
+                    "blank": 0,
+                    "code": 20,
+                    "comment": 0,
+                    "filename": "dist\\ast\\index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "dist\\index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "dist\\utils\\index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "dist\\vm\\cwd.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 62,
+                    "comment": 0,
+                    "filename": "dist\\vm\\file-cache.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "dist\\vm\\functions\\arithmetic-functions.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "dist\\vm\\functions\\base-functions\\fn-fn.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "dist\\vm\\functions\\base-functions\\index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "dist\\vm\\functions\\base-functions\\let-fn.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "dist\\vm\\functions\\base-functions\\loadFile-fn.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "dist\\vm\\functions\\base-functions\\main-fn.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "dist\\vm\\functions\\base-functions\\seq-fn.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "dist\\vm\\functions\\index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 24,
+                    "comment": 2,
+                    "filename": "dist\\vm\\index.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 40,
+                    "comment": 0,
+                    "filename": "dist\\vm\\run-statements.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 46,
+                    "comment": 0,
+                    "filename": "dist\\vm\\scope.js"
+                },
+                {
+                    "blank": 0,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "package.json"
+                },
+                {
+                    "blank": 14,
+                    "code": 45,
+                    "comment": 0,
+                    "filename": "src\\ast\\index.ts"
+                },
+                {
+                    "blank": 5,
+                    "code": 29,
+                    "comment": 0,
+                    "filename": "src\\index.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "src\\utils\\index.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\vm\\cwd.ts"
+                },
+                {
+                    "blank": 8,
+                    "code": 51,
+                    "comment": 0,
+                    "filename": "src\\vm\\file-cache.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "src\\vm\\functions\\arithmetic-functions.ts"
+                },
+                {
+                    "blank": 4,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "src\\vm\\functions\\base-functions\\fn-fn.ts"
+                },
+                {
+                    "blank": 0,
+                    "code": 5,
+                    "comment": 0,
+                    "filename": "src\\vm\\functions\\base-functions\\index.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 17,
+                    "comment": 0,
+                    "filename": "src\\vm\\functions\\base-functions\\let-fn.ts"
+                },
+                {
+                    "blank": 2,
+                    "code": 19,
+                    "comment": 0,
+                    "filename": "src\\vm\\functions\\base-functions\\loadFile-fn.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\vm\\functions\\base-functions\\main-fn.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 10,
+                    "comment": 0,
+                    "filename": "src\\vm\\functions\\base-functions\\seq-fn.ts"
+                },
+                {
+                    "blank": 0,
+                    "code": 2,
+                    "comment": 0,
+                    "filename": "src\\vm\\functions\\index.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 17,
+                    "comment": 2,
+                    "filename": "src\\vm\\index.ts"
+                },
+                {
+                    "blank": 1,
+                    "code": 35,
+                    "comment": 0,
+                    "filename": "src\\vm\\run-statements.ts"
+                },
+                {
+                    "blank": 11,
+                    "code": 40,
+                    "comment": 0,
+                    "filename": "src\\vm\\scope.ts"
+                },
+                {
+                    "blank": 0,
+                    "code": 4,
+                    "comment": 0,
+                    "filename": "test\\lang.lng"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "test\\second.lng"
+                },
+                {
+                    "blank": 0,
+                    "code": 1,
+                    "comment": 0,
+                    "filename": "test\\third.lng"
+                },
+                {
+                    "blank": 1,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "tsconfig.json"
+                },
+                {
+                    "blank": 17,
+                    "code": 74,
+                    "comment": 0,
+                    "filename": "yarn.lock"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,115 @@
+(let {map
+  (fn { list mapper }
+    {
+      (seq
+        (let { imap
+          (fn { list mapper index} {
+            (ifelse
+              (empty? list)
+              {[]}
+              {[(mapper (head list) index) ...(imap (tail list) mapper (+ index 1))]}
+            )
+          })
+        })
+        (imap list mapper 0)
+      )
+    }
+  )
+})
+
+(let {filter
+  (fn { list predicate }
+    {
+      (ifelse
+        (empty? list)
+        {[]}
+        {
+          (ifelse
+            (predicate (head list))
+            {[(head list) ...(filter (tail list) predicate)]}
+            {
+              (filter (tail list) predicate)
+            }
+          )
+        }
+      )
+    }
+  )
+})
+
+(let {reduce
+  (fn { list reducer default }
+    {
+      (ifelse
+        (empty? list)
+        {default}
+        {
+          (reducer (head list) (reduce (tail list) reducer default))
+        }
+      )
+    }
+  )
+})
+
+(let {def-struct
+  (fn { def } 
+    {
+      (seq
+        (let {
+          name
+          (nameof (head def))
+        })
+        (let {
+          params
+          (map
+            (tail def)
+            (fn {p} {
+              [(+ name "-" (nameof p)) (+ name "-with-" (nameof p))]
+            })
+          )
+        })
+        (let {scope (+ (get-scope) -5)})
+        (let-scope {
+          (+ name "")
+          (fn {args} {[name ...args]})
+          scope
+        })
+        // creating struct predicate
+        (let-scope {
+          (+ name "?")
+          (fn
+            {obj}
+            {(ifelse
+              (array? obj)
+              {(and (= (head obj) name) (= (len obj) (len def)))}
+              {false}
+            )}
+          )
+          scope
+        })
+        // creating getters
+        (map params (fn {p i} {
+          (let-scope {
+            (+ (head p) "")
+            (fn
+              {obj}
+              {(nth obj (+ i 1))}
+            )
+            scope
+          })
+        }))
+        // creating copy-on-write setters
+        (map params (fn {p i} {
+          (let-scope {
+            (+ (head (tail p)) "")
+            (fn
+              {obj value}
+              {(with-nth obj (+ i 1) value)}
+            )
+            scope
+          })
+        }))
+      )
+    }
+  )
+})

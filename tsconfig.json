@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2022"],
+    "alwaysStrict": true,
+    "strict": true,
+    "outDir": "./dist",
+  },
+  "include": [
+    "src/**/*"
+  ],
+}
