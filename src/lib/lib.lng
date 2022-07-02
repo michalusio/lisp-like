@@ -57,12 +57,12 @@
       (seq
         (let {
           name
-          (nameof (head def))
+          (nameof (head (head (tail def))))
         })
         (let {
           params
           (map
-            (tail def)
+            (tail (head (tail def)))
             (fn {p} {
               [(+ name "-" (nameof p)) (+ name "-with-" (nameof p))]
             })
@@ -81,7 +81,10 @@
             {obj}
             {(ifelse
               (array? obj)
-              {(and (= (head obj) name) (= (len obj) (len def)))}
+              {(and
+                (= (head obj) name)
+                (= (len obj) (len def))
+              )}
               {false}
             )}
           )

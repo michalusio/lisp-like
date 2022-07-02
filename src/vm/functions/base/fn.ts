@@ -1,20 +1,23 @@
 import { CallParam } from "../../../ast";
+import { isCallParam } from "../../../utils";
 import { runStatement } from "../../run-statements";
 import { ScopeStack } from "../../scope";
 
 export const fn = (input: unknown[], outerStack: ScopeStack) => {
-  if (input.length !== 2 || !Array.isArray(input[0]) || !Array.isArray(input[1])) {
+  if (input.length !== 2 || !isCallParam(input[0]) || !isCallParam(input[1])) {
     throw new Error('fn requires exactly two array arguments');
   }
-  if (input[0].some(x => typeof x !== 'object' || x.type !== 'name')) {
+  const func = input[0];
+  const args = input[1];
+  if (func[0] !== 'expression' || func[1].some((x) => x[0] !== 'name')) {
     throw new Error('fn requires first argument to be an expression array of symbols');
   }
-  if (input[1].some(x => typeof x !== 'object' || !x.type)) {
+  if (args[0] !== 'expression' || args[1].some((x) => !x[0])) {
     throw new Error('fn requires second argument to be an expression array of statements');
   }
 
-  const symbols = input[0].map(s => s.value) as string[];
-  const body = input[1] as CallParam[];
+  const symbols = func[1].map(s => s[1]) as string[];
+  const body = args[1];
 
   const otherSymbols: string[] = [];
   getAllSymbols(body).forEach(s => {
@@ -36,6 +39,9 @@ export const fn = (input: unknown[], outerStack: ScopeStack) => {
 
 export function getAllSymbols(body: CallParam[], symbols?: Set<string>): Set<string> {
   symbols ??= new Set<string>();
+  if (!Array.isArray(body)) {
+    console.log(typeof body, body);
+  }
   body.forEach(b => {
     switch (b[0]) {
       case 'name':
@@ -50,7 +56,7 @@ export function getAllSymbols(body: CallParam[], symbols?: Set<string>): Set<str
 
       case 'spread': {
         const value = b[1];
-        getAllSymbols(value[1], symbols);
+        getAllSymbols([value], symbols);
         break;
       }
     }

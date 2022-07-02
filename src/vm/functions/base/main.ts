@@ -1,21 +1,24 @@
 import { CallParam } from "../../../ast";
+import { isCallParam } from "../../../utils";
 import { runStatement } from "../../run-statements";
 import { ScopeStack } from "../../scope";
 import { IOMonad } from "../io";
 
 export const _main = (input: unknown[], scope: ScopeStack) => {
-  if (input.length !== 2 || !Array.isArray(input[0]) || !Array.isArray(input[1])) {
-    throw new Error('fn requires exactly two array arguments');
+  if (input.length !== 2 || !isCallParam(input[0]) || !isCallParam(input[1])) {
+    throw new Error('main requires exactly two array arguments');
   }
-  if (input[0].some(x => typeof x !== 'object' || x.type !== 'name')) {
+  const func = input[0];
+  const args = input[1];
+  if (func[0] !== 'expression' || func[1].some((x) => x[0] !== 'name')) {
     throw new Error('fn requires first argument to be an expression array of symbols');
   }
-  if (input[1].some(x => typeof x !== 'object' || !x.type)) {
+  if (args[0] !== 'expression' || args[1].some((x) => !x[0])) {
     throw new Error('fn requires second argument to be an expression array of statements');
   }
 
-  const symbols = input[0].map(s => s.value) as string[];
-  const body = input[1] as CallParam[];
+  const symbols = func[1].map(s => s[1]) as string[];
+  const body = args[1];
 
   return ((args: unknown[], scopeStack: ScopeStack) => {
     symbols.forEach((symbol, index) => scopeStack.set(symbol, args[index]));

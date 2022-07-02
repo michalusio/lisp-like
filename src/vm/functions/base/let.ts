@@ -1,15 +1,15 @@
-import { CallParam } from "../../../ast";
+import { isCallParam } from "../../../utils";
 import { runStatement } from "../../run-statements";
 import { ScopeStack } from "../../scope";
 
 export const _let = (args: any[], scopeStack: ScopeStack) => {
-  if (args.length !== 1 || !Array.isArray(args[0])) {
-    throw new Error('let requires exactly one array argument');
+  if (args.length !== 1 || !isCallParam(args[0]) || args[0][0] !== 'expression') {
+    throw new Error('let requires exactly one expression argument');
   }
-  if (args[0].length !== 2) {
-    throw new Error('let requires exactly two elements in the array argument');
+  if (args[0][1].length !== 2) {
+    throw new Error('let requires exactly two elements in the expression argument');
   }
-  const [nameRef, valueRef] = args[0] as [CallParam, CallParam];
+  const [nameRef, valueRef] = args[0][1];
   let name = '';
   switch(nameRef[0]) {
     case 'string':
@@ -25,13 +25,13 @@ export const _let = (args: any[], scopeStack: ScopeStack) => {
 };
 
 export const letScope = (args: any[], scopeStack: ScopeStack) => {
-  if (args.length !== 1 || !Array.isArray(args[0])) {
+  if (args.length !== 1 || !isCallParam(args[0]) || args[0][0] !== 'expression') {
     throw new Error('let-scope requires exactly one array argument');
   }
-  if (args[0].length !== 3) {
+  if (args[0][1].length !== 3) {
     throw new Error('let-scope requires exactly three elements in the array argument');
   }
-  const [nameRef, valueRef, scopeLevelRef] = args[0] as [CallParam, CallParam, CallParam];
+  const [nameRef, valueRef, scopeLevelRef] = args[0][1];
   let name = '';
   switch(nameRef[0]) {
     case 'string':

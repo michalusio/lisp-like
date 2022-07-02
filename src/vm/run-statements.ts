@@ -29,8 +29,9 @@ export function runStatement(statement: CallParam, scopeStack: ScopeStack): unkn
     case 'boolean':
     case 'number':
     case 'string':
-    case 'expression':
       return statement[1];
+    case 'expression':
+      return statement;
     case 'array': return statement[1].flatMap(arg => arg[0] === 'spread' ? runStatement(arg[1], scopeStack) : [runStatement(arg, scopeStack)]);
     case 'spread': return runStatement(statement[1], scopeStack);
 

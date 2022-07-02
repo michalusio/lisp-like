@@ -14,7 +14,7 @@ export type BooleanLiteral = Readonly<['boolean', boolean]>;
 
 export type NameLiteral = Readonly<['name', Name]>;
 
-export type SpreadLiteral = Readonly<['spread', ExpressionLiteral | ArrayLiteral | CallLiteral]>;
+export type SpreadLiteral = Readonly<['spread', ExpressionLiteral | ArrayLiteral | CallLiteral | NameLiteral]>;
 
 export type ExpressionLiteral = Readonly<['expression', Array<CallParam>]>;
 
