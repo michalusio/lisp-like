@@ -11,15 +11,14 @@ export const nameof: (_: unknown[], __: ScopeStack) => string = (input: unknown[
   } else {
     expr = input[0] as CallParam;
   }
-  switch (expr.type) {
+  switch (expr[0]) {
     case 'boolean':
-      return expr.value ? 'true' : 'false';
+      return expr[1] ? 'true' : 'false';
     case 'number':
-      return expr.value.toString();
+      return expr[1].toString();
     case 'string':
-      return expr.value;
     case 'name':
-      return expr.value;
+      return expr[1];
     default:
       throw new Error('nameof requires exactly one expression-like argument');
   }

@@ -11,12 +11,10 @@ export const _let = (args: any[], scopeStack: ScopeStack) => {
   }
   const [nameRef, valueRef] = args[0] as [CallParam, CallParam];
   let name = '';
-  switch(nameRef.type) {
+  switch(nameRef[0]) {
     case 'string':
-      name = nameRef.value;
-      break;
     case 'name':
-      name = nameRef.value;
+      name = nameRef[1];
       break;
     default:
       name = runStatement(nameRef, scopeStack) + '';
@@ -35,12 +33,10 @@ export const letScope = (args: any[], scopeStack: ScopeStack) => {
   }
   const [nameRef, valueRef, scopeLevelRef] = args[0] as [CallParam, CallParam, CallParam];
   let name = '';
-  switch(nameRef.type) {
+  switch(nameRef[0]) {
     case 'string':
-      name = nameRef.value;
-      break;
     case 'name':
-      name = nameRef.value;
+      name = nameRef[1];
       break;
     default:
       name = runStatement(nameRef, scopeStack) + '';

@@ -40,8 +40,11 @@ export function findMain(): [string, number] {
   const mains: [string, number][] = [];
   cache.forEach((value, key) => {
     value.forEach((v, index) => {
-      if (v.type === 'call' && v.value.type === 'name' && v.value.value === 'main') {
-        mains.push([key, index]);
+      if (v[0] === 'call') {
+        const funcName = v[1][0];
+        if (funcName[0] === 'name' && funcName[1] === 'main') {
+          mains.push([key, index]);
+        }
       }
     });
   });

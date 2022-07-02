@@ -37,21 +37,22 @@ export const fn = (input: unknown[], outerStack: ScopeStack) => {
 export function getAllSymbols(body: CallParam[], symbols?: Set<string>): Set<string> {
   symbols ??= new Set<string>();
   body.forEach(b => {
-    switch (b.type) {
+    switch (b[0]) {
       case 'name':
-        symbols!.add(b.value);
+        symbols!.add(b[1]);
         break;
 
       case 'array':
       case 'expression':
-        getAllSymbols(b.value, symbols);
+      case 'call':
+        getAllSymbols(b[1], symbols);
         break;
 
-      case 'call':
-        getAllSymbols(b.args, symbols);
-      case 'spread':
-        getAllSymbols([b.value], symbols);
+      case 'spread': {
+        const value = b[1];
+        getAllSymbols(value[1], symbols);
         break;
+      }
     }
   });
   return symbols;

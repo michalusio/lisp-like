@@ -6,89 +6,59 @@ export type Name = Brand<string, 'name literal'>;
 
 export type CallParam = StringLiteral | NumberLiteral | BooleanLiteral | NameLiteral | ExpressionLiteral | ArrayLiteral | CallLiteral | SpreadLiteral;
 
-export type StringLiteral = Readonly<{
-  type: 'string',
-  value: string,
-}>;
+export type StringLiteral = Readonly<['string', string]>;
 
-export type NumberLiteral = Readonly<{
-  type: 'number',
-  value: number,
-}>;
+export type NumberLiteral = Readonly<['number', number]>;
 
-export type BooleanLiteral = Readonly<{
-  type: 'boolean',
-  value: boolean,
-}>;
+export type BooleanLiteral = Readonly<['boolean', boolean]>;
 
-export type NameLiteral = Readonly<{
-  type: 'name',
-  value: Name,
-}>;
+export type NameLiteral = Readonly<['name', Name]>;
 
-export type SpreadLiteral = Readonly<{
-  type: 'spread',
-  value: CallParam,
-}>;
+export type SpreadLiteral = Readonly<['spread', ExpressionLiteral | ArrayLiteral | CallLiteral]>;
 
-export type ExpressionLiteral = Readonly<{
-  type: 'expression',
-  value: Array<CallParam>,
-}>;
+export type ExpressionLiteral = Readonly<['expression', Array<CallParam>]>;
 
-export type ArrayLiteral = Readonly<{
-  type: 'array',
-  value: Array<CallParam>,
-}>;
+export type ArrayLiteral = Readonly<['array', Array<CallParam>]>;
 
-export type CallLiteral = Readonly<{
-  type: 'call';
-  value: CallParam;
-  args: CallParam[];
-}>;
+export type CallLiteral = Readonly<['call', Array<CallParam>]>;
 
-export type CommentLiteral = Readonly<{
-  type: 'comment';
-}>;
+export type CommentLiteral = Readonly<['comment']>;
 
 const stringLiteral = map(
   between(str('"'), regex(/(?:\.|(\\\")|[^\""\n])*/, "string literal"), str('"')),
-  value => ({ type: 'string', value } as StringLiteral)
+  value => (['string', value ] as StringLiteral)
 );
 const comment = map(any(
   regex(/\/\/[\t \S]*/gm, 'comment'),
   regex(/\/\*[\s\S]*?\*\//gm, 'comment')
-  ), () => ({ type: 'comment' } as CommentLiteral));
-const numberLiteral = map(seq(opt(str('-')), any(intP, realP)), ([minusSign, value]) => ({ type: 'number', value: minusSign ? -value : value } as NumberLiteral));
-const booleanLiteral = map(boolP, value => ({ type: 'boolean', value } as BooleanLiteral));
-const nameLiteral = map(regex(/[a-zA-Z_+\-*/<=>][a-zA-Z0-9_+\-*/<=>?]*/, "name literal"), value => ({ type: 'name', value } as NameLiteral));
+  ), () => (['comment' ] as CommentLiteral));
+const numberLiteral = map(seq(opt(str('-')), any(intP, realP)), ([minusSign, value]) => (['number', minusSign ? -value : value ] as NumberLiteral));
+const booleanLiteral = map(boolP, value => (['boolean', value ] as BooleanLiteral));
+const nameLiteral = map(regex(/[a-zA-Z_+\-*/<=>][a-zA-Z0-9_+\-*/<=>?]*/, "name literal"), value => (['name', value as Name ] as NameLiteral));
 
 const callParam = any(stringLiteral, numberLiteral, booleanLiteral, comment, nameLiteral, expression(), array(), call());
 
 const whitespace = regex(/(?:\s|\t|\n|\r)+/g, "whitespace");
 
-const manyParams = map(zeroOrMany(callParam, whitespace), a => a.filter(x => x.type !== 'comment'));
+const manyParams = map(zeroOrMany(callParam, whitespace), a => a.filter(x => x[0] !== 'comment'));
 
 const arrayManyParams = map(zeroOrMany(
-  map(seq(opt(str('...')), callParam), ([spread, value]) => (spread ? { type: 'spread', value } as SpreadLiteral : value)),
+  map(seq(opt(str('...')), callParam), ([spread, value]) => (spread ? ['spread', value ] as SpreadLiteral : value)),
   whitespace
-), a => a.filter(x => x.type !== 'comment'));
+), a => a.filter(x => x[0] !== 'comment'));
 
-const expressionParams = map(manyParams, params => ({
-  type: 'expression',
-  value: params,
-} as ExpressionLiteral));
+const expressionParams = map(manyParams, params => (['expression',
+  params,
+] as ExpressionLiteral));
 
-const arrayParams = map(arrayManyParams, params => ({
-  type: 'array',
-  value: params,
-} as ArrayLiteral));
+const arrayParams = map(arrayManyParams, params => (['array',
+  params,
+] as ArrayLiteral));
 
-const callParams = map(manyParams, params => ({
-  type: 'call',
-  value: params[0],
-  args: params.slice(1)
-} as CallLiteral));
+const callParams = map(manyParams, params => ([
+  'call',
+  params
+] as CallLiteral));
 
 function expression(): Parser<ExpressionLiteral> {
   return (ctx: Context) => expect(between(seq(str('{'), wspaces), expressionParams, seq(wspaces, str('}'))), 'expression array')(ctx);
