@@ -1,10 +1,10 @@
-import { CallParam } from "../../../ast";
 import { isCallParam } from "../../../utils";
 import { runStatement } from "../../run-statements";
+import { RunType } from "../../runtype";
 import { ScopeStack } from "../../scope";
 import { IOMonad } from "../io";
 
-export const _main = (input: unknown[], scope: ScopeStack) => {
+export const _main = (input: RunType[], scope: ScopeStack) => {
   if (input.length !== 2 || !isCallParam(input[0]) || !isCallParam(input[1])) {
     throw new Error('main requires exactly two array arguments');
   }
@@ -20,9 +20,9 @@ export const _main = (input: unknown[], scope: ScopeStack) => {
   const symbols = func[1].map(s => s[1]) as string[];
   const body = args[1];
 
-  return ((args: unknown[], scopeStack: ScopeStack) => {
+  return ((args: RunType[], scopeStack: ScopeStack) => {
     symbols.forEach((symbol, index) => scopeStack.set(symbol, args[index]));
     const data = body.map(b => runStatement(b, scopeStack));
     return data[data.length - 1];
-  })([new IOMonad()], scope);
+  })([new IOMonad() as unknown as RunType], scope);
 };

@@ -1,7 +1,8 @@
 import { CallParam } from "../ast";
+import { RunType } from "./runtype";
 import { ScopeStack } from "./scope";
 
-export function runStatement(statement: CallParam, scopeStack: ScopeStack): unknown {
+export function runStatement(statement: CallParam, scopeStack: ScopeStack): RunType {
   switch (statement[0]) {
     case 'call': {
       const [value, ...args] = statement[1];

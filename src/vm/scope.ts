@@ -1,4 +1,6 @@
-export type Scope = Record<string, unknown>;
+import { RunType } from "./runtype";
+
+export type Scope = Record<string, RunType>;
 
 export class ScopeStack {
 
@@ -30,7 +32,7 @@ export class ScopeStack {
     return false;
   }
 
-  public get(key: string): unknown {
+  public get(key: string): RunType {
     for (let index = this.scopes.length - 1; index >= 0; index--) {
       const scope = this.scopes[index];
       if (scope[key] !== undefined) {
@@ -40,11 +42,11 @@ export class ScopeStack {
     return undefined;
   }
 
-  public set(key: string, value: unknown): void {
+  public set(key: string, value: RunType): void {
     this.scopes[this.scopes.length - 1][key] = value;
   }
 
-  public setTo(key: string, value: unknown, levels: number): void {
+  public setTo(key: string, value: RunType, levels: number): void {
     this.scopes[levels][key] = value;
   }
 

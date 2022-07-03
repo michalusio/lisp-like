@@ -1,10 +1,8 @@
 import { writeFileSync } from 'fs';
 import * as glob from 'glob';
 import { ParseError } from 'parser-combinators/types';
-import { dirname } from 'path';
 import { runner } from './vm';
-import { setCwd } from './vm/cwd';
-import { findMain, get, getAll, init } from './vm/file-cache';
+import { findMain, getAll, init } from './vm/file-cache';
 
 const flags = [
   'run',
@@ -33,7 +31,6 @@ const flags = [
     if (flagsOn['-run']) {
       console.time('run');
       const main = findMain();
-      setCwd(dirname(main[0]));
       console.log(runner(main));
       console.timeEnd('run');
     } 

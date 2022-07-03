@@ -1,9 +1,10 @@
 import { CallParam } from "../../../ast";
 import { isCallParam } from "../../../utils";
 import { runStatement } from "../../run-statements";
+import { RunType } from "../../runtype";
 import { ScopeStack } from "../../scope";
 
-export const fn = (input: unknown[], outerStack: ScopeStack) => {
+export const fn = (input: RunType[], outerStack: ScopeStack) => {
   if (input.length !== 2 || !isCallParam(input[0]) || !isCallParam(input[1])) {
     throw new Error('fn requires exactly two array arguments');
   }
@@ -27,9 +28,9 @@ export const fn = (input: unknown[], outerStack: ScopeStack) => {
   });
 
   const otherValues = otherSymbols
-    .map(s => [s, outerStack.get(s)] as [string, unknown]);
+    .map(s => [s, outerStack.get(s)] as [string, RunType]);
 
-  return (args: unknown[], scopeStack: ScopeStack) => {
+  return (args: RunType[], scopeStack: ScopeStack) => {
     otherValues.forEach(([symbol, value]) => scopeStack.set(symbol, value));
     symbols.forEach((symbol, index) => scopeStack.set(symbol, args[index]));
     const data = body.map(b => runStatement(b, scopeStack));

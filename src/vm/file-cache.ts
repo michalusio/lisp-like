@@ -1,10 +1,11 @@
 import { ParseFile } from "parser-combinators";
 import { resolve, sep } from "path";
 import { CallLiteral, root } from "../ast";
+import { RunType } from "./runtype";
 
 let allowedFiles: Set<string>;
 let cache: Map<string, CallLiteral[]> = new Map<string, CallLiteral[]>();
-let runCache: Map<string, unknown[]> = new Map<string, unknown[]>();
+let runCache: Map<string, RunType[]> = new Map<string, RunType[]>();
 
 export function init(_allowedFiles: string[]) {
   const allowed = _allowedFiles.map(file => resolve(file).split(sep).join("/"));
@@ -20,11 +21,11 @@ export function get(fileName: string): CallLiteral[] {
   return cache.get(fileName)!;
 }
 
-export function tryGetRun(fileName: string): [boolean, unknown[]] {
+export function tryGetRun(fileName: string): [boolean, RunType[]] {
   return [runCache.has(fileName), runCache.get(fileName)!];
 }
 
-export function setRun(fileName: string, value: unknown[]) {
+export function setRun(fileName: string, value: RunType[]) {
   runCache.set(fileName, value);
 }
 

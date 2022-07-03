@@ -1,27 +1,26 @@
 import { ParseFile } from "parser-combinators";
+import { dirname } from "path";
 import { root } from "../ast";
 import { get } from "./file-cache";
-import { arithmetics, fn, load, array, log, ifelse, _if, _main, nameof, stack, letScope, getScope, _let } from "./functions";
+import { arithmetics, fn, load, array, log, _main, letScope, getScope, _let, _eval } from "./functions";
 import { runStatement } from "./run-statements";
+import { RunType } from "./runtype";
 import { ScopeStack } from "./scope";
 
-export function runner(main: [string, number]): unknown {
+export function runner(main: [string, number]): RunType {
   const scopeStack = new ScopeStack();
 
   // Load the built-ins
   scopeStack.push({
     main: _main,
-    seq: (args: unknown[], _: ScopeStack) => args[args.length - 1],
+    seq: (args: RunType[], _: ScopeStack) => args[args.length - 1],
+    eval: _eval,
     let: _let,
     'let-scope': letScope,
     'get-scope': getScope,
-    stack,
     fn,
     load,
-    ifelse,
-    if: _if,
     log,
-    nameof,
     ...array,
     ...arithmetics
   });
@@ -36,6 +35,7 @@ export function runner(main: [string, number]): unknown {
   const mainFn = mainFile[main[1]];
   const rest = mainFile.filter((_, index) => index !== main[1]);
   scopeStack.pushNew();
+  scopeStack.set("_cwd", dirname(main[0]));
   rest.forEach(v => runStatement(v, scopeStack));
 
   // Run the main function

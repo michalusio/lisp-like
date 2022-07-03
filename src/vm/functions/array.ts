@@ -1,7 +1,8 @@
+import { RunType } from "../runtype";
 import { ScopeStack } from "../scope";
 
 export const array = {
-  head: (args: unknown[], _: ScopeStack) => {
+  head: (args: RunType[], _: ScopeStack) => {
     if (args.length !== 1) {
       throw new Error(`head expects 1 argument, got ${args.length}`);
     }
@@ -11,7 +12,7 @@ export const array = {
     }
     return arr[0];
   },
-  tail: (args: unknown[], _: ScopeStack) => {
+  tail: (args: RunType[], _: ScopeStack) => {
     if (args.length !== 1) {
       throw new Error(`tail expects 1 argument, got ${args.length}`);
     }
@@ -21,7 +22,7 @@ export const array = {
     }
     return arr.slice(1);
   },
-  'len': (args: unknown[], _: ScopeStack) => {
+  'len': (args: RunType[], _: ScopeStack) => {
     if (args.length !== 1) {
       throw new Error(`len expects 1 argument, got ${args.length}`);
     }
@@ -31,7 +32,7 @@ export const array = {
     }
     return arr.length;
   },
-  'nth': (args: unknown[], _: ScopeStack) => {
+  'nth': (args: RunType[], _: ScopeStack) => {
     if (args.length !== 2) {
       throw new Error(`nth expects 2 argument, got ${args.length}`);
     }
@@ -45,7 +46,7 @@ export const array = {
     }
     return arr[index];
   },
-  'with-nth': (args: unknown[], _: ScopeStack) => {
+  'with-nth': (args: RunType[], _: ScopeStack) => {
     if (args.length !== 3) {
       throw new Error(`with-nth expects 3 argument, got ${args.length}`);
     }
@@ -62,14 +63,14 @@ export const array = {
     newArray[index] = value;
     return newArray;
   },
-  'array?': (args: unknown[], _: ScopeStack) => {
+  'array?': (args: RunType[], _: ScopeStack) => {
     if (args.length !== 1) {
       throw new Error(`array? expects 1 argument, got ${args.length}`);
     }
     const arr = args[0];
     return Array.isArray(arr);
   },
-  'empty?': (args: unknown[], _: ScopeStack) => {
+  'empty?': (args: RunType[], _: ScopeStack) => {
     if (args.length !== 1) {
       throw new Error(`empty? expects 1 argument, got ${args.length}`);
     }
